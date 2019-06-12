@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="com.king.poi.word-poi.main" target="1.8" />
+      <module name="com.king.poi.word-poi.test" target="1.8" />
+      <module name="word-poi.demo.main" target="1.8" />
+      <module name="word-poi.demo.test" target="1.8" />
+      <module name="word-poi.word-poi.main" target="1.8" />
+      <module name="word-poi.word-poi.test" target="1.8" />
+      <module name="WordPOI.main" target="1.8" />
+      <module name="WordPOI.test" target="1.8" />
+      <module name="WordPOI.word-poi.main" target="1.8" />
+      <module name="WordPOI.word-poi.test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
