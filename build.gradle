@@ -1,7 +1,19 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.9'
+    }
+}
 
 plugins {
     id 'java'
 }
+
+apply plugin: 'com.novoda.bintray-release'
+apply from: 'bintray.gradle'
 
 group 'com.king.poi'
 version '1.0.0'

@@ -1,0 +1,11 @@
+apply plugin: 'com.novoda.bintray-release'
+
+//添加
+publish {
+    userOrg = 'jenly'//bintray.com用户名
+    groupId = 'com.king.poi'//jcenter上的路径
+    artifactId = 'word-poi'//项目名称
+    publishVersion = '1.0.0'//版本号
+    desc = 'WordPOI for Java'//描述
+    website = 'https://github.com/jenly1314/WordPOI'//网站
+}

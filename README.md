@@ -90,7 +90,7 @@ compile 'org.apache.poi:poi-scratchpad:4.1.0'
 
 ```
 
-更多使用详情，请查看[ Example ](src/test/java/Test.java)中的源码使用示例,或直接查看[API帮助文档](https://jenly1314.github.io/projects/WordPOI/doc/)
+更多使用详情，请查看[Test](src/test/java/Test.java)中的源码使用示例或直接查看[API帮助文档](https://jenly1314.github.io/projects/WordPOI/doc/)
 
 ## 版本记录
 
