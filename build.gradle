@@ -27,6 +27,7 @@ tasks.withType(JavaCompile) {
 repositories {
     mavenCentral()
     jcenter()
+    maven { url 'https://dl.bintray.com/jenly/maven' }
 }
 
 jar {
@@ -35,16 +36,21 @@ jar {
     manifest {
         attributes "Main-Class": "com.king.poi.word.WordPOI"
     }
-    from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    }
+//    from {
+//        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+//    }
 }
 
+//task copyJars(type: Copy) {
+//    from configurations.runtime
+//    into 'build/libs/lib'
+//}
 
-task release(type: Copy,dependsOn: [build]) {
-    from  'build/libs'
-    into ('libs')
-}
+
+//task release(type: Copy,dependsOn: [build]) {
+//    from  'build/libs'
+//    into ('libs')
+//}
 
 
 allprojects {
