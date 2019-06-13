@@ -9,7 +9,7 @@ version '1.0.0'
 sourceCompatibility = 1.8
 
 tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
+    options.encoding = 'UTF-8'
 }
 
 repositories {
@@ -18,8 +18,8 @@ repositories {
 }
 
 jar {
-    manifestContentCharset 'utf-8'
-    metadataCharset 'utf-8'
+    manifestContentCharset 'UTF-8'
+    metadataCharset 'UTF-8'
     manifest {
         attributes "Main-Class": "com.king.poi.word.WordPOI"
     }
@@ -29,25 +29,24 @@ jar {
 }
 
 
-task clearPj(type:Delete){
-    delete 'build','target'
-}
-
-task copyJar(type:Copy){
-    from configurations.runtime
-    into ('build/libs/lib')
-
-}
-
-
-task release(type: Copy,dependsOn: [build,copyJar]) {
+task release(type: Copy,dependsOn: [build]) {
     from  'build/libs'
-    into ('libs') // 目标位置
+    into ('libs')
 }
 
 
+allprojects {
+    tasks.withType(Javadoc) {
+        options{
+            encoding "UTF-8"
+            charSet 'UTF-8'
+            links "http://docs.oracle.com/javase/8/docs/api"
+        }
 
-
+        options.addStringOption('Xdoclint:none', '-quiet')
+        failOnError false
+    }
+}
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'

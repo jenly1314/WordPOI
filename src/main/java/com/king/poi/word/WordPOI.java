@@ -16,11 +16,11 @@ import java.util.List;
 
 
 /**
- * 核心功能：将文档中的表格实体转换成Java实体对象
- * 1. 支持解析doc格式和docx格式的Word文档
- * 2. 支持批量解析Word文档并转换成实体
- * 3. 解析配置支持自定义，详情请查看{@link ParseConfig}相关配置
- * 4. 虽然解析可配置，但因文档内容的不可控，解析转换也具有一定的局限性
+ * 核心功能：将文档中表格定义的实体转换成Java实体对象
+ * <br/> 1. 支持解析doc格式和docx格式的Word文档
+ * <br/> 2. 支持批量解析Word文档并转换成实体
+ * <br/> 3. 解析配置支持自定义，详情请查看{@link ParseConfig}相关配置
+ * <br/> 4. 虽然解析可配置，但因文档内容的不可控，解析转换也具有一定的局限性
  *
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
  */

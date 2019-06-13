@@ -8,7 +8,7 @@
 
 WordPOI是一个将Word接口文档转换成JavaBean的工具库，主要目的是减少部分无脑的开发工作。
 
-> 核心功能：将文档中的表格实体转换成Java实体对象
+> 核心功能：将文档中表格定义的实体转换成Java实体对象
  
 ## WordPOI特性说明  
  1. 支持解析doc格式和docx格式的Word文档
@@ -90,7 +90,7 @@ compile 'org.apache.poi:poi-scratchpad:4.1.0'
 
 ```
 
-更多使用详情，请查看[ Example ](src/test/java/Test.java)中的源码使用示例
+更多使用详情，请查看[ Example ](src/test/java/Test.java)中的源码使用示例,或直接查看[API帮助文档](https://jenly1314.github.io/projects/WordPOI/doc/)
 
 ## 版本记录
 
