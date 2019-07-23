@@ -1,7 +1,9 @@
 # WordPOI
 
 [![Download](https://img.shields.io/badge/download-jar-blue.svg)](https://raw.githubusercontent.com/jenly1314/WordPOI/master/libs/word-poi-1.0.0.jar)
-[![Jitpack](https://jitpack.io/v/jenly1314/WordPOI.svg)](https://jitpack.io/#jenly1314/WordPOI)
+[![JitPack](https://jitpack.io/v/jenly1314/WordPOI.svg)](https://jitpack.io/#jenly1314/WordPOI)
+[![CI](https://travis-ci.org/jenly1314/WordPOI.svg?branch=master)](https://travis-ci.org/jenly1314/WordPOI)
+[![CircleCI](https://circleci.com/gh/jenly1314/WordPOI.svg?style=svg)](https://circleci.com/gh/jenly1314/WordPOI)
 [![License](https://img.shields.io/badge/license-Apche%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Blog](https://img.shields.io/badge/blog-Jenly-9933CC.svg)](https://jenly1314.github.io)
 [![QQGroup](https://img.shields.io/badge/QQGroup-20867961-blue.svg)](http://shang.qq.com/wpa/qunwpa?idkey=8fcc6a2f88552ea44b1411582c94fd124f7bb3ec227e2a400dbbfaad3dc2f5ad)
