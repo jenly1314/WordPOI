@@ -92,6 +92,28 @@ compile 'org.apache.poi:poi-scratchpad:4.1.0'
 
 ```
 
+文档实体示例
+
+1.1.	Result （响应结果实体）
+
+| 字段    | 字段类型  |   说明  |
+| :------| :------ | :------ |
+|code    |  String | 0-代表成功，其它代表失败 |
+|desc    |  String |	操作失败时的说明信息 |
+|data    |	T	   |   返回对应的泛型<T>实体对象 |
+
+
+1.2.	PageInfo （页码信息实体）
+
+| 字段     |   字段类型    |   说明  |
+| :------ | :------ | :------ |
+| curPage   | Integer   |	当前页码 |
+| pageSize  | Integer   |	页码大小，每一页的记录条数 |
+| totalPage | Integer	| 总页数 | 
+| hasNext   | Boolean	|  是否有下一页 | 
+| data	    | List< T > | 	泛型T对应的数据记录实体集合 | 
+
+
 更多使用详情，请查看[Test](src/test/java/Test.java)中的源码使用示例或直接查看[API帮助文档](https://jenly1314.github.io/projects/WordPOI/doc/)
 
 ## 版本记录
