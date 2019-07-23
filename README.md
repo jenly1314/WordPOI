@@ -111,7 +111,7 @@ compile 'org.apache.poi:poi-scratchpad:4.1.0'
 | pageSize  | Integer   |	页码大小，每一页的记录条数 |
 | totalPage | Integer	| 总页数 | 
 | hasNext   | Boolean	|  是否有下一页 | 
-| data	    | List< T > | 	泛型T对应的数据记录实体集合 | 
+| data	    | List< T > | 	泛型T为对应的数据记录实体 | 
 
 
 更多使用详情，请查看[Test](src/test/java/Test.java)中的源码使用示例或直接查看[API帮助文档](https://jenly1314.github.io/projects/WordPOI/doc/)
