@@ -33,9 +33,13 @@ WordPOI是一个将Word接口文档转换成JavaBean的工具库，主要目的�
 | genGetterAndSetter | boolean | true | 是否生成get和set方法 |
 | genToString | boolean | true | 是否生成toString方法 |
 | useLombok | boolean |false| 是否使用Lombok |
+| parseEntityName | boolean |false| 是否解析实体名称 |
+| entityNameRow | int | 0 | 实体名称所在行 |
+| entityNameColumn | int | 0 | 实体名称所在列 |
 | serializable | boolean | false | 是否实现Serializable序列化 |
 | showHeader | boolean | true | 是否显示头注释 |
 | header | String | Created by WordPOI | 头注释内容 |
+| transformations | Map&lt;String,String&gt; |  | 需要转型的集合（自定义转型配置） |
 
 
 ## 引入
