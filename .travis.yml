@@ -1,7 +1,9 @@
 language: java
 jdk:
-  -oraclejdk8
-  -oraclejdk11
+  - oraclejdk8
+  - oraclejdk11
+  - openjdk10
+  - openjdk11
 
 script:
   - ./gradlew build
