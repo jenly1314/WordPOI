@@ -164,7 +164,7 @@ compile 'org.apache.poi:poi-scratchpad:4.1.0'
 
 <table>
     <tr>
-    	<td colspan="3">Result</td>    
+    	<td colspan="3">PageInfo</td>    
    </tr>
    <tr>
         <td>字段</td> 
