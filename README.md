@@ -1,6 +1,6 @@
 # WordPOI
 
-[![Download](https://img.shields.io/badge/download-jar-blue.svg)](https://raw.githubusercontent.com/jenly1314/WordPOI/master/libs/word-poi-1.0.0.jar)
+[![Download](https://img.shields.io/badge/download-jar-blue.svg)](https://raw.githubusercontent.com/jenly1314/WordPOI/master/libs/word-poi-1.0.1.jar)
 [![JitPack](https://jitpack.io/v/jenly1314/WordPOI.svg)](https://jitpack.io/#jenly1314/WordPOI)
 [![CI](https://travis-ci.org/jenly1314/WordPOI.svg?branch=master)](https://travis-ci.org/jenly1314/WordPOI)
 [![CircleCI](https://circleci.com/gh/jenly1314/WordPOI.svg?style=svg)](https://circleci.com/gh/jenly1314/WordPOI)
@@ -45,18 +45,18 @@ WordPOI是一个将Word接口文档转换成JavaBean的工具库，主要目的�
 <dependency>
   <groupId>com.king.poi</groupId>
   <artifactId>word-poi</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <type>pom</type>
 </dependency>
 ```
 ### Gradle:
 ```gradle
-compile 'com.king.poi:word-poi:1.0.0'
+compile 'com.king.poi:word-poi:1.0.1'
 ```
 
 ### Lvy:
 ```lvy
-<dependency org='com.king.poi' name='word-poi' rev='1.0.0'>
+<dependency org='com.king.poi' name='word-poi' rev='1.0.1'>
   <artifact name='$AID' ext='pom'></artifact>
 </dependency>
 ```
@@ -83,16 +83,26 @@ compile 'org.apache.poi:poi-scratchpad:4.1.0'
 
 代码示例 (直接在main方法中调用即可)
 ```Java
-    //Word转实体对象,根据'.doc'或'.docx'自动判断文档格式
-    WordPOI.wordToEntity("C:/Api1.docx","C:/bean/","com.king.poi.bean",config,"Result","PageInfo");
-    //docx格式的Word文档转实体对象
-    WordPOI.wordToEntity(Test.class.getResourceAsStream("Api1.docx"),false,"C:/bean/","com.king.poi.bean","Result","PageInfo");
-    //doc格式的Word文档转实体对象
-    WordPOI.wordToEntity(Test.class.getResourceAsStream("Api2.doc"),true,"C:/bean/","com.king.poi.bean","TestBean");
+        try {
+
+            /**
+             * 解析文档中的表格实体，表格包含了实体名称，只需配置 {@link ParseConfig#parseEntityName} 为 true 和相关对应行，即可开启自动解析实体名称，自动解析实体名称
+             * {@link ParseConfig}中包含解析时需要的各种配置，方便灵活的支持文档中更多的表格样式
+             */
+            ParseConfig config  = new ParseConfig.Builder().startRow(2).parseEntityName(true).build();
+            WordPOI.wordToEntity(Test.class.getResourceAsStream("Api3.docx"),false,"C:/bean/","com.king.poi.bean",config);
+            //解析文档docx格式  需要传生成的对象实体名称
+//            WordPOI.wordToEntity(Test.class.getResourceAsStream("Api1.docx"),false,"C:/bean/","com.king.poi.bean","Result","PageInfo");
+            //解析文档docx格式  需要传生成的对象实体名称
+//            WordPOI.wordToEntity(Test.class.getResourceAsStream("Api2.doc"),true,"C:/bean/","com.king.poi.bean","TestBean");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 ```
 
-文档实体示例
+
+* 文档实体示例一（默认格式，见文档 Api1.docx）
 
 1.1.	Result （响应结果实体）
 
@@ -111,12 +121,93 @@ compile 'org.apache.poi:poi-scratchpad:4.1.0'
 | pageSize  | Integer   |	页码大小，每一页的记录条数 |
 | totalPage | Integer	| 总页数 | 
 | hasNext   | Boolean	|  是否有下一页 | 
-| data	    | List< T > | 	泛型T为对应的数据记录实体 | 
+| data	    | List&lt;T&gt; | 	泛型T为对应的数据记录实体 | 
+
+
+* 文档实体示例二（自动解析实体名称格式，见文档 Api3.docx）
+
+1.1.    响应结果实体
+
+<table>
+    <tr>
+    	<td colspan="3">Result</td>    
+   </tr>
+   <tr>
+        <td>字段</td> 
+        <td>字段类型</td> 
+        <td>说明</td> 
+   </tr>
+   <tr>
+        <td>code</td> 
+        <td>String</td> 
+        <td>0-代表成功，其它代表失败</td> 
+   </tr>
+   <tr>
+        <td>desc</td> 
+        <td>String</td> 
+        <td>操作失败时的说明信息</td> 
+   </tr>
+   <tr>
+        <td>data</td> 
+        <td>T</td> 
+        <td>返回对应的泛型&lt;T&gt;实体对象</td> 
+   </tr>
+
+</table>
+
+
+1.2.    页码信息实体
+
+<table>
+    <tr>
+    	<td colspan="3">Result</td>    
+   </tr>
+   <tr>
+        <td>字段</td> 
+        <td>字段类型</td> 
+        <td>说明</td> 
+   </tr>
+   <tr>
+        <td>curPage</td> 
+        <td>Integer</td> 
+        <td>当前页码</td> 
+   </tr>
+   <tr>
+        <td>curPage</td> 
+        <td>Integer</td> 
+        <td>当前页码</td> 
+   </tr>
+   <tr>
+        <td>pageSize</td> 
+        <td>Integer</td> 
+        <td>页码大小，每一页的记录条数</td> 
+   </tr>
+   <tr>
+        <td>totalPage</td> 
+        <td>Integer</td> 
+        <td>总页数</td> 
+   </tr>
+   <tr>
+        <td>hasNext</td> 
+        <td>Boolean</td> 
+        <td>是否有下一页</td> 
+   </tr>
+   <tr>
+        <td>data</td> 
+        <td>List&lt;T&gt;</td> 
+        <td>泛型T为对应的数据记录实体</td> 
+   </tr>
+
+</table>
 
 
 更多使用详情，请查看[Test](src/test/java/Test.java)中的源码使用示例或直接查看[API帮助文档](https://jenly1314.github.io/projects/WordPOI/doc/)
 
 ## 版本记录
+
+#### v1.0.1：2019-9-17
+*  支持自动解析实体名称
+*  支持添加自定义转型配置
 
 #### v1.0.0：2019-6-12
 *  WordPOI初始版本

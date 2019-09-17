@@ -13,6 +13,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -140,35 +141,53 @@ public final class WordPOI {
      * @throws IOException
      */
     private static void docxToEntity(InputStream inputStream,String outPath,String packageName,ParseConfig parseConfig,String... entityNames) throws IOException{
+
+        boolean isParseEntityName = parseConfig.isParseEntityName();
         int length = entityNames.length;
-        if(length>0){
+        if(isParseEntityName || length>0){
             List<XWPFTable> xwpfTableList = getXWPFTables(inputStream);
+
             int size = xwpfTableList.size();
             //遍历文档所有表格
             for (int i = parseConfig.getStartTable(); i < size; i++) {
-                if(i > length){
+                if(i > length && !isParseEntityName){
                     return;
                 }
                 //得到文档当前表格
                 XWPFTable table = xwpfTableList.get(i);
                 int rows = table.getNumberOfRows();
 
-                //遍历文档当前表格的当前行
-                EntityProperty entityProperty = new EntityProperty(packageName,entityNames[i]);
+                String entityName;
+                if(isParseEntityName){
+                    entityName = table.getRow(parseConfig.getEntityNameRow()).getCell(parseConfig.getEntityNameColumn()).getText();
+                }else{
+                    entityName = entityNames[i];
+                }
+                EntityProperty entityProperty = new EntityProperty(packageName,entityName);
+
+                Map<String,String> transformations = parseConfig.getTransformations();
+                boolean isTransfer = transformations != null && !transformations.isEmpty();
 
                 List<FieldProperty> filedPropertyList = new ArrayList<>();
+                //遍历文档当前表格的当前行
                 for (int j = parseConfig.getStartRow(); j < rows; j++){
                     XWPFTableRow row = table.getRow(j);
                     List<XWPFTableCell> cells = row.getTableCells();
                     int cols = cells.size();
-                    //遍历文档当前表格当前行的当前列
+
                     FieldProperty filedProperty = new FieldProperty();
+                    //遍历文档当前表格当前行的当前列
                     for (int k = parseConfig.getStartColumn(); k < cols; k++) {
                         XWPFTableCell cell = cells.get(k);
                         if(k == parseConfig.getFieldNameColumn()){
                             filedProperty.setName(cell.getText());
                         }else if(k == parseConfig.getFieldTypeColumn()){
-                            filedProperty.setType(cell.getText());
+                            String type = cell.getText();
+                            if(isTransfer && transformations.containsKey(type)){
+                                filedProperty.setType(transformations.get(type));
+                            }else{
+                                filedProperty.setType(type);
+                            }
                         }else if(k == parseConfig.getFieldDescColumn()){
                             filedProperty.setDesc(cell.getText());
                         }
@@ -200,8 +219,10 @@ public final class WordPOI {
      * @throws IOException
      */
     private static void docToEntity(InputStream inputStream,String outPath,String packageName,ParseConfig parseConfig,String... entityNames) throws IOException{
+
+        boolean isParseEntityName = parseConfig.isParseEntityName();
         int length = entityNames.length;
-        if(length>0){
+        if(isParseEntityName || length>0){
             TableIterator tableIterator = getTableIterator(inputStream);
             int index = 0;
 
@@ -209,29 +230,43 @@ public final class WordPOI {
                 tableIterator.hasNext();
             }
 
+            Map<String,String> transformations = parseConfig.getTransformations();
+            boolean isTransfer = transformations != null && !transformations.isEmpty();
             while (tableIterator.hasNext()){
 
-                if(index > length){
+                if(index > length && !isParseEntityName){
                     return;
                 }
 
                 Table table = tableIterator.next();
                 int rows = table.numRows();
-                //遍历文档当前表格的当前行
-                EntityProperty entityProperty = new EntityProperty(packageName,entityNames[index]);
+
+                String entityName;
+                if(isParseEntityName){
+                    entityName = table.getRow(parseConfig.getEntityNameRow()).getCell(parseConfig.getEntityNameColumn()).text().replace("\u0007","");
+                }else{
+                    entityName =  entityNames[index];
+                }
+                EntityProperty entityProperty = new EntityProperty(packageName,entityName);
 
                 List<FieldProperty> filedPropertyList = new ArrayList<>();
+                //遍历文档当前表格的当前行
                 for (int j = parseConfig.getStartRow(); j < rows; j++){
                     TableRow row = table.getRow(j);
                     int cols = row.numCells();
-                    //遍历文档当前表格当前行的当前列
                     FieldProperty filedProperty = new FieldProperty();
+                    //遍历文档当前表格当前行的当前列
                     for (int k = parseConfig.getStartColumn(); k < cols; k++) {
                         TableCell cell = row.getCell(k);
                         if(k == parseConfig.getFieldNameColumn()){
                             filedProperty.setName(cell.getParagraph(0).text().replace("\u0007",""));
                         }else if(k == parseConfig.getFieldTypeColumn()){
-                            filedProperty.setType(cell.getParagraph(0).text().replace("\u0007",""));
+                            String type = cell.getParagraph(0).text().replace("\u0007","");
+                            if(isTransfer && transformations.containsKey(type)){
+                                filedProperty.setType(transformations.get(type));
+                            }else{
+                                filedProperty.setType(type);
+                            }
                         }else if(k == parseConfig.getFieldDescColumn()){
                             filedProperty.setDesc(cell.getParagraph(0).text().replace("\u0007",""));
                         }

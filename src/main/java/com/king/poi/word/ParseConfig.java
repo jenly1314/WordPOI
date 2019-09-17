@@ -1,5 +1,8 @@
 package com.king.poi.word;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 解析配置
  * @author <a href="mailto:jenly1314@gmail.com">Jenly</a>
@@ -52,6 +55,21 @@ public class ParseConfig {
     private boolean useLombok;
 
     /**
+     * 是否解析实体名称
+     */
+    private boolean parseEntityName;
+
+    /**
+     * 实体名称所在行（解析实体名称时，实体名称一般在第0行）
+     */
+    private int entityNameRow = 0;
+
+    /**
+     * 实体名称所在列（解析实体名称时，实体名称一般在第0列）
+     */
+    private int entityNameColumn = 0;
+
+    /**
      * 是否实现Serializable序列化
      */
     private boolean serializable;
@@ -65,6 +83,24 @@ public class ParseConfig {
      * 头注释内容
      */
     private String header = "Created by WordPOI";
+
+    /**
+     * 需要转型的集合
+     * 例如：Integer -> int
+     *      Double -> double
+     */
+    private Map<String,String> transformations;
+
+
+    public static final Map<String,String> BASIC_TYPE = new HashMap<>();
+    static {
+        BASIC_TYPE.put("Byte","byte");
+        BASIC_TYPE.put("Short","short");
+        BASIC_TYPE.put("Integer","int");
+        BASIC_TYPE.put("Float","float");
+        BASIC_TYPE.put("Double","double");
+        BASIC_TYPE.put("Long","long");
+    }
 
     public ParseConfig() {
     }
@@ -80,9 +116,13 @@ public class ParseConfig {
         genGetterAndSetter = builder.genGetterAndSetter;
         genToString = builder.genToString;
         useLombok = builder.useLombok;
+        parseEntityName = builder.parseEntityName;
+        entityNameRow = builder.entityNameRow;
+        entityNameColumn = builder.entityNameColumn;
         serializable = builder.serializable;
         showHeader = builder.showHeader;
         header = builder.header;
+        transformations = builder.transformations;
     }
 
 
@@ -126,6 +166,18 @@ public class ParseConfig {
         return useLombok;
     }
 
+    public boolean isParseEntityName() {
+        return parseEntityName;
+    }
+
+    public int getEntityNameRow() {
+        return entityNameRow;
+    }
+
+    public int getEntityNameColumn() {
+        return entityNameColumn;
+    }
+
     public boolean isSerializable() {
         return serializable;
     }
@@ -138,6 +190,9 @@ public class ParseConfig {
         return header;
     }
 
+    public Map<String, String> getTransformations() {
+        return transformations;
+    }
 
     public static final class Builder {
         /**
@@ -186,6 +241,21 @@ public class ParseConfig {
         private boolean useLombok;
 
         /**
+         * 是否解析实体名称
+         */
+        private boolean parseEntityName;
+
+        /**
+         * 实体名称所在行（解析实体名称时，实体名称一般在第0行）
+         */
+        private int entityNameRow = 0;
+
+        /**
+         * 实体名称所在列（解析实体名称时，实体名称一般在第0列）
+         */
+        private int entityNameColumn = 0;
+
+        /**
          * 是否实现Serializable序列化
          */
         private boolean serializable;
@@ -199,6 +269,13 @@ public class ParseConfig {
          * 头注释内容
          */
         private String header = "Created by WordPOI";
+
+        /**
+         * 需要转型的集合
+         * 例如：Integer -> int
+         *      Double -> double
+         */
+        private Map<String,String> transformations;
 
         public Builder() {
         }
@@ -304,6 +381,36 @@ public class ParseConfig {
         }
 
         /**
+         * 是否解析实体名称
+         * @param parseEntityName {@link ParseConfig#parseEntityName}
+         * @return
+         */
+        public Builder parseEntityName(boolean parseEntityName) {
+            this.parseEntityName = parseEntityName;
+            return this;
+        }
+
+        /**
+         * 设置实体名称所在行
+         * @param entityNameRow {@link ParseConfig#entityNameRow}
+         * @return
+         */
+        public Builder entityNameRow(int entityNameRow) {
+            this.entityNameRow = entityNameRow;
+            return this;
+        }
+
+        /**
+         * 设置实体名称所在列
+         * @param entityNameColumn {@link ParseConfig#entityNameColumn}
+         * @return
+         */
+        public Builder entityNameColumn(int entityNameColumn) {
+            this.entityNameColumn = entityNameColumn;
+            return this;
+        }
+
+        /**
          * 设置是否序列化
          * @param serializable {@link ParseConfig#serializable}
          * @return {@link Builder}
@@ -331,6 +438,18 @@ public class ParseConfig {
          */
         public Builder header(String header) {
             this.header = header;
+            return this;
+        }
+
+        /**
+         * 设置需要转型的集合
+         * 例如：Integer -> int
+         *      Double -> double
+         * @param transformations
+         * @return
+         */
+        public Builder transformations(Map<String,String> transformations) {
+            this.transformations = transformations;
             return this;
         }
 

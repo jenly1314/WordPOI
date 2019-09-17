@@ -16,7 +16,7 @@ apply plugin: 'com.novoda.bintray-release'
 apply from: 'bintray.gradle'
 
 group 'com.king.poi'
-version '1.0.0'
+version '1.0.1'
 
 sourceCompatibility = 1.8
 
@@ -45,8 +45,8 @@ jar {
 //    from configurations.runtime
 //    into 'build/libs/lib'
 //}
-
-
+//
+//
 //task release(type: Copy,dependsOn: [build]) {
 //    from  'build/libs'
 //    into ('libs')
